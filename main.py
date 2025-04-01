@@ -25,7 +25,7 @@ class VerifyRepo:
             os.chdir(repo)
             status = subprocess.getoutput("git status")
             if 'nothing to commit' in status:
-                print(f"Repositórios abaixo de {self.path} já estão sincronizado.")
+                print(f"Repositório em {repo} já está sincronizado.")
             else:
                 print(f"Alterações encontradas:\n {status}")
                 action = input("Deseja adicionar todas as alterações e comitar? [y/n | yes/no]: ")
