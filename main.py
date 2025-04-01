@@ -2,12 +2,12 @@ import os
 import subprocess
 class VerifyRepo:
     def __get_folder(self:object) -> str:
-        path = input("Digite o caminho do diretório alvo da busca: ").strip()
-        if not os.path.isdir(path):
-            print(f"Diretório '{path}' não encontrado!")
+        self.path = input("Digite o caminho do diretório alvo da busca: ").strip()
+        if not os.path.isdir(self.path):
+            print(f"Diretório '{self.path}' não encontrado!")
             return "Path not found"
         else:
-            return path
+            return self.path
     def __find_repo(self:object) -> list:
         path = self.__get_folder()
         repo_list = []
@@ -25,7 +25,7 @@ class VerifyRepo:
             os.chdir(repo)
             status = subprocess.getoutput("git status")
             if 'nothing to commit' in status:
-                print("Repositório já está sincronizado.")
+                print(f"Repositórios abaixo de {self.path} já está sincronizado.")
             else:
                 print(f"Alterações encontradas:\n {status}")
                 action = input("Deseja adicionar todas as alterações e comitar? [y/n | yes/no]: ")
@@ -53,7 +53,7 @@ class VerifyRepo:
                     print("Saída de erro:", e.stderr)
     def main(self:object) -> None:
         self.__git_sync()
-        
+
 if __name__ == "__main__":
     sync_repo = VerifyRepo()
     sync_repo.main()
