@@ -31,3 +31,21 @@ class PathSave:
             return None
         
         return root
+    def get_file(self) -> str:
+        """Abre um diálogo para selecionar um arquivo
+
+        Retorna:
+            str: Caminho do arquivo escolhido, ou None se for inválido
+        """
+        filter = "Images (*.png, *.jpg, *.jpeg, *.btm, *.gif, *.webp);;Minha extensão (*.ard);;PDF (*.pdf);;Todos os arquivos (*.*)"
+        file, filter_selected = QFileDialog.getOpenFileName(None, "Selecione um arquivo", "", filter)
+
+        if not file: # Se for vazio, o usuario cancelou
+            return None
+        
+        if not os.path.isfile(file):
+            message = f"O arquivo informado <{file}> não foi encontrado!"
+            border = "*" * (len(message) + 4)
+            sys.stderr.write(f"\n{border}\n {message} \n{border}\n")
+            return None
+        return file
