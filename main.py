@@ -1,1 +1,4 @@
-import features
+from features import GitSync
+
+obj = GitSync()
+#obj.sync()

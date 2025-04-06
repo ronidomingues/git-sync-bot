@@ -12,7 +12,7 @@ class PathSave:
         self.app = QApplication(sys.argv)
 
 
-    def get_root(self) -> str | None:
+    def get_dir(self) -> str | None:
         """Abre um diálogo para selecionar um diretório.
         
         Retorna:

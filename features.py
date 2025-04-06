@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 from interface import PathSave
 
@@ -8,7 +9,7 @@ class FindRepositories(PathSave):
     def __init__(self) -> None:
         """Inicializa a classe e define o diretório raiz."""
         super().__init__()
-        self.root = self.get_root()
+        self.root = self.get_dir()
     
     def _get_repositories(self) -> list[str]:
         """Obtém uma lista de diretórios contendo repositórios Git.
@@ -61,3 +62,23 @@ class FindRepositories(PathSave):
         except OSError as e:
             print(f"Erro ao acessar o arquivo: {e}")
         return None
+
+class GitSync(FindRepositories):
+    def __init__(self) -> None:
+        super().__init__()
+
+    def sync(self):
+        repositories = self._get_repositories()
+        for repo in repositories:
+            print(f"\n==> Verificando repositório em: {repo}")
+            os.chdir(repo)
+            status = subprocess.getoutput("git status")
+            if 'nothing to commit' in status:
+                print(f"Repositório em {repo} já está sincronizado.")
+            else:
+                print(f"Alterações encontradas:\n {status}")
+        pass
+
+if __name__ == "__main__":
+    obj = GitSync()
+    obj.sync()
