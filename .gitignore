@@ -1,3 +1,6 @@
+# Diretórios ignorados durante o upload do git
+.venv
 __pycache__/
 saves/
+# Arquivos ignorados durante o upload do git
 proto.py
